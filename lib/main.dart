@@ -34,6 +34,17 @@ class HomeScreen extends StatelessWidget {
             child: Column(
           children: [
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.white10,
+                shadowColor: Colors.transparent,
+                overlayColor: Colors.green,
+                
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  side: BorderSide(width: 2, color: Colors.black)
+                )
+              ),
               child: Text('Ajouter une nouvelle tâche'),
               onPressed: () {
                 Navigator.pushNamed(context, '/add-todo');
