@@ -36,4 +36,27 @@ class ApiService {
       throw Exception('Failed to delete todo');
     }
   }
+
+  Future<Todo> editTodo(int idTodo, String? todo, bool? completed) async {
+    http.Response response;
+    if(todo == null){
+      response = await http.put(Uri.parse("$baseUrl/$idTodo"), headers: {'Content-Type': 'application/json'}, body: jsonEncode({
+      'completed': completed,
+    }));
+    } else if(completed == null){
+      response = await http.put(Uri.parse("$baseUrl/$idTodo"), headers: {'Content-Type': 'application/json'}, body: jsonEncode({
+      'todo': todo,
+    }));
+    } else {
+      response = await http.put(Uri.parse("$baseUrl/$idTodo"), headers: {'Content-Type': 'application/json'}, body: jsonEncode({
+      'todo': todo,
+      'completed': completed,
+    }));
+    }
+    if (response.statusCode == 200) {
+      return Todo.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to edit todo');
+    }
+  }
 }
