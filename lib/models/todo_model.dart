@@ -1,6 +1,4 @@
-import 'package:flutter/rendering.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'todo_model.freezed.dart';
 part 'todo_model.g.dart';
 
