@@ -30,30 +30,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('To do list')),
-        body: Center(
-            child: Column(
+        body: Column(
           children: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.white10,
-                shadowColor: Colors.transparent,
-                overlayColor: Colors.green,
-                
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  side: BorderSide(width: 2, color: Colors.black)
-                )
-              ),
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white10,
+                  shadowColor: Colors.transparent,
+                  overlayColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      side: BorderSide(width: 2, color: Colors.black))),
               child: Text('Ajouter une nouvelle tâche'),
               onPressed: () {
                 Navigator.pushNamed(context, '/add-todo');
               },
             ),
-            DisplayTodo()
+            DisplayTodo(),
           ],
-        )
-      )
-    );
+        ));
   }
 }

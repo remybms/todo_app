@@ -22,16 +22,34 @@ class DisplayTodo extends StatelessWidget {
 
           final todos = snapshot.data!.todos;
           return Expanded(
-              child: SizedBox(
-                width: 900,
             child: ListView.builder(
                 itemCount: todos.length,
                 itemBuilder: (context, index) {
                   final todo = todos[index];
                   return ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      title: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            apiService.deleteTodo(todo.id);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(10),
+                              minimumSize: Size(30, 30),
+                              foregroundColor: Colors.black,
+                              backgroundColor: Colors.white10,
+                              shadowColor: Colors.transparent,
+                              shape: CircleBorder()),
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.black,
+                          ),
+                        ),
+                        CheckButton(
+                            isCompleted: todo.completed, idTodo: todo.id),
                         ElevatedButton(
                           onPressed: () {},
                           onLongPress: () async {
@@ -41,33 +59,18 @@ class DisplayTodo extends StatelessWidget {
                                     EditTodo(todo: todo.todo, idTodo: todo.id));
                           },
                           style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor: Colors.white10,
-                              shadowColor: Colors.transparent,
-                              minimumSize: Size(550, 50)),
-                          child: Text(todo.todo),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            apiService.deleteTodo(todo.id);
-                          },
-                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
                             foregroundColor: Colors.black,
                             backgroundColor: Colors.white10,
                             shadowColor: Colors.transparent,
                           ),
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.black,
-                          ),
+                          child: Text(todo.todo),
                         ),
-                        CheckButton(
-                            isCompleted: todo.completed, idTodo: todo.id),
                       ],
                     ),
-                  );
+                  ));
                 }),
-          ));
+          );
         });
   }
 }
@@ -91,9 +94,12 @@ class _CheckButton extends State<CheckButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.all(10),
+        minimumSize: Size(30, 30),
         foregroundColor: Colors.black,
         backgroundColor: Colors.white10,
         shadowColor: Colors.transparent,
+        shape: CircleBorder(),
       ),
       onPressed: () {
         setState(() {
